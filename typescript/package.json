@@ -1,0 +1,14 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+
+  "scripts": {
+    "run_script": "node generated_js/index.js"
+  },
+
+  "dependencies": {
+    "typescript": "^4.7.4"
+  }
+}

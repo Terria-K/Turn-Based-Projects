@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "allowJs": false,
+        "module": "CommonJS",
+        "target": "ES6",
+        "outDir": "generated_js/",
+        "removeComments": true,
+        "sourceMap": true
+    },
+    "include": ["src/**/*"]
+}
