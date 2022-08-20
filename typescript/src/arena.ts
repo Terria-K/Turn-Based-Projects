@@ -56,13 +56,13 @@ export function* fight(self: Arena) {
         if (self.entityA.hp < 1) {
             self.states = States.FinalState;
             console.log(`${self.entityB.name} Wins!\n`);
-            throw "";
+            break;
         }
 
         if (self.entityB.hp < 1) {
             self.states = States.FinalState;
             console.log(`${self.entityA.name} Wins!\n`);
-            throw "";
+            break;
         }
 
         turn++;
