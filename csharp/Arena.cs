@@ -45,7 +45,7 @@ public class Arena
                     DisplayHealth();
                     Console.WriteLine("============Turn {0}===============", turn);
                     if (constA.Hp > 0)
-                        Console.WriteLine("{0} Turn!", constB.Name);
+                        Console.WriteLine("{0} Turn!", constA.Name);
                     gameState = States.TurnAState;
                     break;
             }

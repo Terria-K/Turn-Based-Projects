@@ -1,4 +1,4 @@
-export interface Entity {
+export type Entity = {
     name: string,
     hp: number,
 }

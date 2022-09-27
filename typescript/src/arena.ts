@@ -1,6 +1,6 @@
 import { assignAttackDamage, dealDamage, Entity } from "./entity";
 
-interface Arena {
+type Arena = {
     entityA: Entity,
     entityB: Entity,
     states: States

@@ -58,20 +58,22 @@ void Arena::Fight()
 				std::cout << B->GetName() << " Turn!\n";
 			state = States::TurnAState;
 			break;
+		default:
+			break;
 		}
 
 		if (A->GetHp() < 1) 
 		{
 			state = States::FinalState;
 			std::cout << B->GetName() << " Wins!\n";
-			continue;
+			break;
 		}
 
 		if (B->GetHp() < 1)
 		{
 			state = States::FinalState;
 			std::cout << A->GetName() << " Wins!\n";
-			continue;
+			break;
 		}
 		turn++;
 		sleep_for(10ns);
@@ -86,11 +88,11 @@ void Arena::Prompt()
 	int any = 0;
 	std::cout << "Type 0 or above to continue the game, type -1 to exit!\n";
 	std::cin >> any;
-	if (any > -1) 
+	if (any > 0) 
 	{
 		A->SetHp(100);
 		B->SetHp(100);
-		Fight(any);
+		Fight();
 	}
 }
 

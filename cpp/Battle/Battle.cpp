@@ -5,8 +5,8 @@
 int main()
 {
     srand((unsigned)time(0));
-    Entity* player = new Entity("Player", 100);
-    Entity* enemy = new Entity("Enemy", 100);
+    Entity* player = new Entity("Player");
+    Entity* enemy = new Entity("Enemy");
     int input = 0;
     std::cout << "Enter any key to start\n";
     std::cin >> input;
