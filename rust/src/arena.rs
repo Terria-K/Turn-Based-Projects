@@ -1,7 +1,7 @@
 use std::{thread::sleep, time::Duration, io, ops::Range};
 use rand::{thread_rng, Rng};
 
-use crate::entities::entity::*;
+use crate::entity::*;
 
 #[derive(PartialEq)]
 enum ArenaStates {

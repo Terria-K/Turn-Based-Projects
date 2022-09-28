@@ -1,9 +1,9 @@
 use std::io;
 
-use entities::entity::*;
-use arena::arena::*;
+use entity::*;
+use arena::*;
 
-mod entities;
+mod entity;
 mod arena;
 
 fn main() {
