@@ -66,7 +66,7 @@ public class Arena
             }
 
             turn++;
-            Thread.Sleep(1000);
+            Thread.Sleep(1000);	
         }
 
         Prompt();
@@ -83,7 +83,6 @@ public class Arena
         Console.WriteLine("Type 0 or above to continue the game, type -1 to exit!");
         if (!int.TryParse(Console.ReadLine(), out int res))
         {
-            Console.WriteLine("Not a valid number!, exiting the program");
             return;
         }
         if (res > -1) 
