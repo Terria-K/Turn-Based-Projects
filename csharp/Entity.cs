@@ -18,8 +18,8 @@ public class Entity
         Console.WriteLine("===============================");       
     }
 
-    public int AssignAttackDamage(int max) 
+    public int AssignAttackDamage(int max, Random random) 
     {
-        return Utils.GenerateRandom(max);
+        return random.Next() % max;
     }
 }

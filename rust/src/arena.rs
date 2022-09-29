@@ -4,70 +4,70 @@ use rand::{thread_rng, Rng};
 use crate::entity::*;
 
 #[derive(PartialEq)]
-enum ArenaStates {
-    IdleState,
-    TurnAState,
-    TurnBState,
-    FinalState
+enum States {
+    Idle,
+    TurnA,
+    TurnB,
+    Final
 }
 
-pub struct Arena<'a> {
-    contestant_a: &'a mut Entity,
-    contestant_b: &'a mut Entity,
-    state: ArenaStates
+pub struct Arena {
+    entity_a: Entity,
+    entity_b: Entity,
+    state: States
 }
 
-impl<'a> Arena<'a> {
-    pub fn new(contestant_a: &'a mut Entity, contestant_b: &'a mut Entity) -> Arena<'a> {
+impl Arena {
+    pub fn new(entity_a: Entity, entity_b: Entity) -> Arena {
         Arena {
-            contestant_a,
-            contestant_b,
-            state: ArenaStates::IdleState
+            entity_a,
+            entity_b,
+            state: States::Idle
         }
     }
 
     pub fn fight(&mut self) {
         let randomize = thread_rng().gen_range::<i32, Range<i32>>(0..2);
         self.state = match randomize {
-            1 => ArenaStates::TurnAState,
-            _ => ArenaStates::TurnBState
+            1 => States::TurnA,
+            _ => States::TurnB
         };
         let mut turn = 1;
-        while self.state != ArenaStates::FinalState {
+        while self.state != States::Final {
             let a_damage = assign_attack_damage(50);
             let b_damage = assign_attack_damage(50);
 
             match self.state {
-                ArenaStates::TurnAState => {
-                    { deal_damage_to(self.contestant_a, &mut self.contestant_b, a_damage); }                        
+                States::TurnA => {
+                    self.entity_a.deal_damage_to(&mut self.entity_b, a_damage);                       
                     self.display_health();
                     println!("============Turn {}===============", turn);
-                    if self.contestant_b.hp > 0 {
-                        println!("{} Turn!", self.contestant_b.name);
+                    if self.entity_b.hp > 0 {
+                        println!("{} Turn!", self.entity_b.name);
                     }
-                    self.state = ArenaStates::TurnBState;
+                    self.state = States::TurnB;
                 },
-                ArenaStates::TurnBState => {
-                    { deal_damage_to(self.contestant_b, &mut self.contestant_a, b_damage); }                        
+                States::TurnB => {
+                    self.entity_b.deal_damage_to(&mut self.entity_a, b_damage); 
                     self.display_health();
                     println!("============Turn {}===============", turn);
-                    if self.contestant_a.hp > 0 {
-                        println!("{} Turn!", self.contestant_a.name);
+                    if self.entity_a.hp > 0 {
+                        println!("{} Turn!", self.entity_a.name);
                     }
-                    self.state = ArenaStates::TurnAState;
+                    self.state = States::TurnA;
                 },
                 _ => {}
             }
 
-            if self.contestant_a.hp < 1 {
-                println!("{} Wins!", self.contestant_b.name);
-                self.state = ArenaStates::FinalState;
+            if self.entity_a.hp < 1 {
+                println!("{} Wins!", self.entity_b.name);
+                self.state = States::Final;
                 continue;
             }
 
-            if self.contestant_b.hp < 1 {
-                println!("{} Wins!", self.contestant_a.name);
-                self.state = ArenaStates::FinalState;
+            if self.entity_b.hp < 1 {
+                println!("{} Wins!", self.entity_a.name);
+                self.state = States::Final;
                 continue;
             }
 
@@ -80,36 +80,19 @@ impl<'a> Arena<'a> {
     fn prompt(&mut self) {
         println!("===================================");
         println!("Type 0 or above to continue the game, type -1 to exit!");
-        // Compiler won't shut up, even though it was used
-        let mut _num = 0;
-        loop {       
-            let mut input = String::new();
-            if let Ok(_) = io::stdin().read_line(&mut input) {
-                let split = input
-                    .split_ascii_whitespace()
-                    .next()
-                    .unwrap_or("NaN");
-                match split.parse() {
-                    Ok(inp) => {
-                        _num = inp;
-                        break;
-                    },
-                    Err(_) => {
-                        println!("{} is not a valid number", input);
-                    }
-                }
+        let mut input = String::new();
+        if io::stdin().read_line(&mut input).is_ok() {
+            let num = input.trim().parse::<i32>().unwrap_or(-1);
+            if num > -1 {
+                self.entity_a.hp = 100;
+                self.entity_b.hp = 100;
+                self.fight();
             }
         }
-        if _num <= -1 {
-            return;
-        }
-        self.contestant_a.hp = 100;
-        self.contestant_b.hp = 100;
-        self.fight();
     }
 
     fn display_health(&self) {
-        println!("{} has {} hp.", self.contestant_a.name, self.contestant_a.hp); 
-        println!("{} has {} hp.", self.contestant_b.name, self.contestant_b.hp); 
+        println!("{} has {} hp.", self.entity_a.name, self.entity_a.hp); 
+        println!("{} has {} hp.", self.entity_b.name, self.entity_b.hp); 
     }
 }

@@ -10,5 +10,5 @@ type Entity(name: string) =
         Console.WriteLine("{0} Damages -> {1} with {2} dmg", name, entity.Name, damage)
         printfn "==============================="
 
-    member _.AssignAttackDamage max =
-        Utils.GenerateRandom max
+    member _.AssignAttackDamage (max, random: Random) =
+        random.Next() % max

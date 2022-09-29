@@ -12,16 +12,16 @@ impl Entity {
             hp: 100 
         }
     }
+
+    pub fn deal_damage_to(&self, target: &mut Entity, damage: i8) {
+        target.hp -= damage;
+        println!("{} Damages -> {} with {} dmg", self.name, target.name, damage);
+        println!("===============================");
+    }
 }
 
 pub fn assign_attack_damage(max: i8) -> i8 {
     rand::thread_rng().gen_range(0..max)
-}
-
-pub fn deal_damage_to(dealer: &Entity, target: &mut Entity, damage: i8) {
-    target.hp -= damage;
-    println!("{} Damages -> {} with {} dmg", dealer.name, target.name, damage);
-    println!("===============================");
 }
 
 impl Default for Entity {

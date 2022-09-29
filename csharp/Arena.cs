@@ -1,23 +1,25 @@
 namespace TurnBaseCombat;
 
+enum States { IdleState, TurnAState, TurnBState, FinalState }
+
+
 public class Arena 
 {
-    enum States { IdleState, TurnAState, TurnBState, FinalState }
-
-    private Entity constA;
-    private Entity constB;
+    private Random random = new Random();
+    private Entity entityA;
+    private Entity entityB;
     private States gameState;
 
-    public Arena(Entity constA, Entity constB)
+    public Arena(Entity entityA, Entity entityB)
     {
-        this.constA = constA;
-        this.constB = constB;
+        this.entityA = entityA;
+        this.entityB = entityB;
         this.gameState = States.IdleState;
     }
 
     public void Fight() 
     {
-        var randomize = Utils.GenerateRandom(2);
+        var randomize = random.Next() % 2;
         gameState = randomize switch 
         {
             1 => States.TurnBState,
@@ -27,39 +29,39 @@ public class Arena
         var turn = 1;
         while (gameState != States.FinalState) 
         {
-            var aDamage = constA.AssignAttackDamage(50);
-            var bDamage = constA.AssignAttackDamage(50);
+            var aDamage = entityA.AssignAttackDamage(50, random);
+            var bDamage = entityB.AssignAttackDamage(50, random);
 
             switch (gameState) 
             {
                 case States.TurnAState:
-                    constA.DealDamageTo(constB, aDamage);
+                    entityA.DealDamageTo(entityB, aDamage);
                     DisplayHealth();
                     Console.WriteLine("============Turn {0}===============", turn);
-                    if (constB.Hp > 0)
-                        Console.WriteLine("{0} Turn!", constB.Name);
+                    if (entityB.Hp > 0)
+                        Console.WriteLine("{0} Turn!", entityB.Name);
                     gameState = States.TurnBState;
                     break;
                 case States.TurnBState:
-                    constB.DealDamageTo(constA, bDamage);
+                    entityB.DealDamageTo(entityA, bDamage);
                     DisplayHealth();
                     Console.WriteLine("============Turn {0}===============", turn);
-                    if (constA.Hp > 0)
-                        Console.WriteLine("{0} Turn!", constA.Name);
+                    if (entityA.Hp > 0)
+                        Console.WriteLine("{0} Turn!", entityA.Name);
                     gameState = States.TurnAState;
                     break;
             }
 
-            if (constA.Hp < 1) 
+            if (entityA.Hp < 1) 
             {
                 gameState = States.FinalState;
-                Console.WriteLine("{0} Wins!", constB.Name);
+                Console.WriteLine("{0} Wins!", entityB.Name);
                 continue;
             }
-            if (constB.Hp < 1) 
+            if (entityB.Hp < 1) 
             {
                 gameState = States.FinalState;
-                Console.WriteLine("{0} Wins!", constA.Name);
+                Console.WriteLine("{0} Wins!", entityA.Name);
                 continue;
             }
 
@@ -72,8 +74,8 @@ public class Arena
 
     public void DisplayHealth() 
     {
-        Console.WriteLine("{0} has {1} health", constA.Name, constA.Hp);
-        Console.WriteLine("{0} has {1} health", constB.Name, constB.Hp);
+        Console.WriteLine("{0} has {1} health", entityA.Name, entityA.Hp);
+        Console.WriteLine("{0} has {1} health", entityB.Name, entityB.Hp);
     }
 
     public void Prompt() 
@@ -86,8 +88,8 @@ public class Arena
         }
         if (res > -1) 
         {
-            constA.Hp = 100;
-            constB.Hp = 100;
+            entityA.Hp = 100;
+            entityB.Hp = 100;
             Fight();
         }
     }

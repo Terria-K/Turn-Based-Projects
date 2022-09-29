@@ -9,19 +9,21 @@ type States =
     | FinalState = 3
 
 type Arena(contestA: Entity, contestB: Entity) =
+    let random = new Random()
     let contestA = contestA
     let contestB = contestB
     let mutable states = States.IdleState
 
     member this.Fight() =
-        let randomized = Utils.GenerateRandom 2
+        let randomized = random.Next() % 2
         states <- 
             match randomized with 
                 | 1 -> States.TurnAState 
                 | _ -> States.TurnBState
         let mutable turn = 1
         while states <> States.FinalState do
-            let (aDamage, bDamage) = (contestA.AssignAttackDamage 50, contestB.AssignAttackDamage 50) 
+            let (aDamage, bDamage) = (contestA.AssignAttackDamage (50, random), 
+                                    contestB.AssignAttackDamage (50, random)) 
             match states with
                 | States.TurnAState ->
                     contestA.DealDamageTo(contestB, aDamage)
