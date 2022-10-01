@@ -31,23 +31,22 @@ public class Arena
         {
             var aDamage = entityA.AssignAttackDamage(50, random);
             var bDamage = entityB.AssignAttackDamage(50, random);
+            Console.WriteLine("============Turn {0}===============", turn);
 
             switch (gameState) 
             {
                 case States.TurnAState:
                     entityA.DealDamageTo(entityB, aDamage);
                     DisplayHealth();
-                    Console.WriteLine("============Turn {0}===============", turn);
                     if (entityB.Hp > 0)
-                        Console.WriteLine("{0} Turn!", entityB.Name);
+                        Console.WriteLine("{0} Turn!\n", entityB.Name);
                     gameState = States.TurnBState;
                     break;
                 case States.TurnBState:
                     entityB.DealDamageTo(entityA, bDamage);
                     DisplayHealth();
-                    Console.WriteLine("============Turn {0}===============", turn);
                     if (entityA.Hp > 0)
-                        Console.WriteLine("{0} Turn!", entityA.Name);
+                        Console.WriteLine("{0} Turn!\n", entityA.Name);
                     gameState = States.TurnAState;
                     break;
             }

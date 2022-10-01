@@ -37,22 +37,21 @@ impl Arena {
             let a_damage = assign_attack_damage(50);
             let b_damage = assign_attack_damage(50);
 
+            println!("============Turn {}===============", turn);
             match self.state {
                 States::TurnA => {
                     self.entity_a.deal_damage_to(&mut self.entity_b, a_damage);                       
                     self.display_health();
-                    println!("============Turn {}===============", turn);
                     if self.entity_b.hp > 0 {
-                        println!("{} Turn!", self.entity_b.name);
+                        println!("{} Turn!\n", self.entity_b.name);
                     }
                     self.state = States::TurnB;
                 },
                 States::TurnB => {
                     self.entity_b.deal_damage_to(&mut self.entity_a, b_damage); 
                     self.display_health();
-                    println!("============Turn {}===============", turn);
                     if self.entity_a.hp > 0 {
-                        println!("{} Turn!", self.entity_a.name);
+                        println!("{} Turn!\n", self.entity_a.name);
                     }
                     self.state = States::TurnA;
                 },

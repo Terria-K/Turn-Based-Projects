@@ -22,20 +22,20 @@ class Arena:
         while self.state != final_state:
             a_damage = self.entity_a.assign_attack_damage(50)
             b_damage = self.entity_b.assign_attack_damage(50)
+            
+            print("============Turn %s===============" % turn)
 
             if self.state == turn_a_state:
                 self.entity_a.deal_damage_to(self.entity_b, a_damage)
                 self.display_health()
-                print("============Turn %s===============" % turn)
                 if self.entity_b.hp > 0:
-                    print("%s Turn!" % self.entity_b.name)
+                    print("%s Turn!\n" % self.entity_b.name)
                 self.state = turn_b_state
             elif self.state == turn_b_state:
                 self.entity_b.deal_damage_to(self.entity_a, b_damage)
                 self.display_health()
-                print("============Turn %s===============" % turn)
                 if self.entity_a.hp > 0:
-                    print("%s Turn!" % self.entity_a.name)
+                    print("%s Turn!\n" % self.entity_a.name)
                 self.state = turn_a_state
             
             if self.entity_a.hp < 1:

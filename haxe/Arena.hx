@@ -31,22 +31,21 @@ class Arena {
         while (state != States.FinalState) {
             var aDamage = entityA.assignAttackDamage(50);
             var bDamage = entityB.assignAttackDamage(50);
+            trace('============Turn $turn===============');
 
             switch (state) {
                 case States.TurnAState:
                     entityA.dealDamageTo(entityB, aDamage);
                     displayHealth();
-                    trace('============Turn $turn===============');
                     if (entityB.hp > 0) {
-                        trace('${entityB.name} Turn!');
+                        trace('${entityB.name} Turn!\n');
                     }
                     state = States.TurnBState;
                 case States.TurnBState:
                     entityB.dealDamageTo(entityA, bDamage);
                     displayHealth();
-                    trace('============Turn $turn===============');
                     if (entityA.hp > 0) {
-                        trace('${entityA.name} Turn!');
+                        trace('${entityA.name} Turn!\n');
                     }
                     state = States.TurnAState;
                 case _:

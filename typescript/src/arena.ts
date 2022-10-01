@@ -35,21 +35,20 @@ export function* fight(self: Arena) {
     while (self.states != States.FinalState) {
         const aDamage = assignAttackDamage(50);
         const bDamage = assignAttackDamage(50);
+        console.log(`============Turn ${turn}===============\n`)
 
         switch (self.states) {
             case States.TurnAState:
                 dealDamage(self.entityA, self.entityB, aDamage);
                 displayHealth(self);
-                console.log(`============Turn ${turn}===============\n`)
                 if (self.entityB.hp > 0)
-                    console.log(`${self.entityB.name} Turn!\n`);
+                    console.log(`${self.entityB.name} Turn!\n\n`);
                 self.states = States.TurnBState;
             case States.TurnBState:
                 dealDamage(self.entityB, self.entityA, bDamage);
                 displayHealth(self);
-                console.log(`============Turn ${turn}===============\n`)
                 if (self.entityA.hp > 0)
-                    console.log(`${self.entityA.name} Turn!\n`);
+                    console.log(`${self.entityA.name} Turn!\n\n`);
                 self.states = States.TurnAState;
         }
 

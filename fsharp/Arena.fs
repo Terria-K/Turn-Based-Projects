@@ -24,20 +24,21 @@ type Arena(contestA: Entity, contestB: Entity) =
         while states <> States.FinalState do
             let (aDamage, bDamage) = (contestA.AssignAttackDamage (50, random), 
                                     contestB.AssignAttackDamage (50, random)) 
+            Console.WriteLine("============Turn {0}===============", turn)
+
             match states with
                 | States.TurnAState ->
                     contestA.DealDamageTo(contestB, aDamage)
                     this.DisplayHealth()
-                    Console.WriteLine("============Turn {0}===============", turn)
+
                     if contestB.Hp > 0 then
-                        Console.WriteLine("{0} Turn!", contestB.Name)
+                        Console.WriteLine("{0} Turn!\n", contestB.Name)
                     states <- States.TurnBState
                 | States.TurnBState ->
                     contestB.DealDamageTo(contestA, bDamage)
                     this.DisplayHealth()
-                    Console.WriteLine("============Turn {0}===============", turn)
                     if contestA.Hp > 0 then
-                        Console.WriteLine("{0} Turn!", contestA.Name)
+                        Console.WriteLine("{0} Turn!\n", contestA.Name)
                     states <- States.TurnAState
                 | _ -> printfn "Done!" 
             

@@ -26,19 +26,20 @@ function Arena:fight()
 	while self.state ~= FINAL_STATE do
 		local a_damage = self.entity_a:assign_attack_damage(50)
 		local b_damage = self.entity_a:assign_attack_damage(50)
+		print(string.format("============Turn %s===============", turn))
 
 		if self.state == TURN_A_STATE then
 			self.entity_a:deal_damage_to(self.entity_b, a_damage)
 			self:display_health()
 			if self.entity_b.hp > 0 then
-				print(string.format("%s Turn!", self.entity_b.name))
+				print(string.format("%s Turn!\n", self.entity_b.name))
 			end
 			self.state = TURN_B_STATE
 		elseif self.state == TURN_B_STATE then
 			self.entity_b:deal_damage_to(self.entity_a, b_damage)
 			self:display_health()
 			if self.entity_a.hp > 0 then
-				print(string.format("%s Turn!", self.entity_a.name))
+				print(string.format("%s Turn!\n", self.entity_a.name))
 			end
 			self.state = TURN_A_STATE
 		end

@@ -44,22 +44,21 @@ void Arena::fight()
 		int a_damage = entity_a->assign_attack_damage(50);
 		int b_damage = entity_b->assign_attack_damage(50);
 
+		std::cout << "============Turn " << turn << "=============== \n";
 		switch (state) 
 		{
 		case States::TurnAState:
 			entity_a->deal_damage_to(entity_b, a_damage);
 			display_health();
-			std::cout << "============Turn " << turn << "=============== \n";
 			if (entity_b->get_hp() > 0)
-				std::cout << entity_b->get_name() << " Turn!\n";
+				std::cout << entity_b->get_name() << " Turn!\n\n";
 			state = States::TurnBState;
 			break;
 		case States::TurnBState:
 			entity_b->deal_damage_to(entity_a, b_damage);
 			display_health();
-			std::cout << "============Turn " << turn << "=============== \n";
 			if (entity_a->get_hp() > 0)
-				std::cout << entity_b->get_name() << " Turn!\n";
+				std::cout << entity_b->get_name() << " Turn!\n\n";
 			state = States::TurnAState;
 			break;
 		default:
