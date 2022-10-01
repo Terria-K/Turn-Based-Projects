@@ -2,27 +2,31 @@
 #include <chrono>
 #include <thread>
 #include "Arena.h" 
+#ifdef _WIN32
 #include <windows.h>
+#else
+#include <unistd.h>
+#endif
 #include <shellapi.h>
 
 using namespace std::this_thread;
 using namespace std::chrono_literals;
 using std::chrono::system_clock;
 
-Arena::Arena(Entity* contestantA, Entity* contestantB) 
+Arena::Arena(Entity* entity_a, Entity* entity_b) 
 {
-	A = contestantA;
-	B = contestantB;
+	this->entity_a = entity_a;
+	this->entity_b = entity_b;
 	done = false;
 	state = States::IdleState;
 }
 
-bool Arena::IsDone() 
+bool Arena::is_done() 
 {
 	return done;
 }
 
-void Arena::Fight() 
+void Arena::fight() 
 {
 	int randomize = rand() % 2;
 	switch (randomize) 
@@ -37,67 +41,67 @@ void Arena::Fight()
 	int turn = 1;
 	while (state != States::FinalState) 
 	{
-		int ADamage = A->AssignAttackDamage(50);
-		int BDamage = B->AssignAttackDamage(50);
+		int a_damage = entity_a->assign_attack_damage(50);
+		int b_damage = entity_b->assign_attack_damage(50);
 
 		switch (state) 
 		{
 		case States::TurnAState:
-			A->DealDamageTo(B, ADamage);
-			DisplayHealth();
+			entity_a->deal_damage_to(entity_b, a_damage);
+			display_health();
 			std::cout << "============Turn " << turn << "=============== \n";
-			if (B->GetHp() > 0)
-				std::cout << B->GetName() << " Turn!\n";
+			if (entity_b->get_hp() > 0)
+				std::cout << entity_b->get_name() << " Turn!\n";
 			state = States::TurnBState;
 			break;
 		case States::TurnBState:
-			B->DealDamageTo(A, BDamage);
-			DisplayHealth();
+			entity_b->deal_damage_to(entity_a, b_damage);
+			display_health();
 			std::cout << "============Turn " << turn << "=============== \n";
-			if (A->GetHp() > 0)
-				std::cout << B->GetName() << " Turn!\n";
+			if (entity_a->get_hp() > 0)
+				std::cout << entity_b->get_name() << " Turn!\n";
 			state = States::TurnAState;
 			break;
 		default:
 			break;
 		}
 
-		if (A->GetHp() < 1) 
+		if (entity_a->get_hp() < 1) 
 		{
 			state = States::FinalState;
-			std::cout << B->GetName() << " Wins!\n";
-			break;
+			std::cout << entity_b->get_name() << " Wins!\n";
+			continue;
 		}
 
-		if (B->GetHp() < 1)
+		if (entity_b->get_hp() < 1)
 		{
 			state = States::FinalState;
-			std::cout << A->GetName() << " Wins!\n";
-			break;
+			std::cout << entity_a->get_name() << " Wins!\n";
+			continue;
 		}
 		turn++;
 		sleep_for(10ns);
 		sleep_until(system_clock::now() + 1s);
 	}
-	Prompt();
+	prompt();
 	done = true;
 }
 
-void Arena::Prompt() 
+void Arena::prompt() 
 {
 	int any = 0;
 	std::cout << "Type 0 or above to continue the game, type -1 to exit!\n";
 	std::cin >> any;
-	if (any > 0) 
+	if (any > -1) 
 	{
-		A->SetHp(100);
-		B->SetHp(100);
-		Fight();
+		entity_a->set_hp(100);
+		entity_b->set_hp(100);
+		fight();
 	}
 }
 
-void Arena::DisplayHealth() 
+void Arena::display_health() 
 {
-	std::cout << A->GetName() << " has " << A->GetHp() << " HP\n";
-	std::cout << B->GetName() << " has " << B->GetHp() << " HP\n";
+	std::cout << entity_a->get_name() << " has " << entity_a->get_hp() << " HP\n";
+	std::cout << entity_b->get_name() << " has " << entity_b->get_hp() << " HP\n";
 }

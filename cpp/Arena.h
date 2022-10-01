@@ -13,15 +13,15 @@ enum class States
 class Arena 
 {
 private:
-	Entity* A;
-	Entity* B;
+	Entity* entity_a;
+	Entity* entity_b;
 	bool done;
 	States state;
 
 public:
-	bool IsDone();
+	bool is_done();
 	Arena(Entity* contestantA, Entity* contestantB);
-	void Fight();
-	void DisplayHealth();
-	void Prompt();
+	void fight();
+	void display_health();
+	void prompt();
 };

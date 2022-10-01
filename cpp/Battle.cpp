@@ -2,7 +2,7 @@
 #include "Entity.h"
 #include "Arena.h"
 
-int main()
+auto main() -> int
 {
     srand((unsigned)time(0));
     Entity* player = new Entity("Player");
@@ -11,9 +11,9 @@ int main()
     std::cout << "Enter any key to start\n";
     std::cin >> input;
     Arena arena = Arena(player, enemy);
-    arena.Fight();
+    arena.fight();
 
-    if (arena.IsDone())
+    if (arena.is_done())
     {
         delete player;
         delete enemy;
