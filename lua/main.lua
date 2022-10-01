@@ -1,0 +1,11 @@
+math.randomseed(os.time())
+local Player = require("entity")
+local Enemy = require("entity")
+local Arena = require("arena")
+
+local player = Player("Player")
+local enemy = Enemy("Enemy")
+print("Enter to start!")
+_ = io.read("*l")
+local arena = Arena:new(player, enemy)
+arena:fight()

@@ -72,8 +72,8 @@ export function* fight(self: Arena) {
 
 
 function displayHealth(self: Arena) {
-    console.log(`${self.entityA.name} has ${self.entityA.hp} health`);
-    console.log(`${self.entityB.name} has ${self.entityB.hp} health`);
+    console.log(`${self.entityA.name} has ${self.entityA.hp} HP`);
+    console.log(`${self.entityB.name} has ${self.entityB.hp} HP`);
 }
 
 function prompt() {

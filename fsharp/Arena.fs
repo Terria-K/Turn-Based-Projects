@@ -55,8 +55,8 @@ type Arena(contestA: Entity, contestB: Entity) =
                     
     
     member _.DisplayHealth(): unit =
-        Console.WriteLine("{0} has {1} health", contestA.Name, contestA.Hp)
-        Console.WriteLine("{0} has {1} health", contestB.Name, contestB.Hp)
+        Console.WriteLine("{0} has {1} HP", contestA.Name, contestA.Hp)
+        Console.WriteLine("{0} has {1} HP", contestB.Name, contestB.Hp)
 
     member this.Prompt() =
         printfn "Type 0 or above to continue the game, type -1 to exit!"

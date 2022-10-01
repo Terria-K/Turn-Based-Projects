@@ -51,8 +51,8 @@ class Arena:
         self.prompt()
 
     def display_health(self):
-        print("{0} has {1}".format(self.entity_a.name, self.entity_a.hp))
-        print("{0} has {1}".format(self.entity_b.name, self.entity_b.hp))
+        print("{0} has {1} HP".format(self.entity_a.name, self.entity_a.hp))
+        print("{0} has {1} HP".format(self.entity_b.name, self.entity_b.hp))
 
     def prompt(self):
         inp = input("Type 0 or above to continue the game, type -1 to exit")

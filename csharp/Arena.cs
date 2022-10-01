@@ -74,8 +74,8 @@ public class Arena
 
     public void DisplayHealth() 
     {
-        Console.WriteLine("{0} has {1} health", entityA.Name, entityA.Hp);
-        Console.WriteLine("{0} has {1} health", entityB.Name, entityB.Hp);
+        Console.WriteLine("{0} has {1} HP", entityA.Name, entityA.Hp);
+        Console.WriteLine("{0} has {1} HP", entityB.Name, entityB.Hp);
     }
 
     public void Prompt() 

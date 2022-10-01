@@ -98,6 +98,6 @@ void Arena::Prompt()
 
 void Arena::DisplayHealth() 
 {
-	std::cout << A->GetName() << " has " << A->GetHp() << " health\n";
-	std::cout << B->GetName() << " has " << B->GetHp() << " health\n";
+	std::cout << A->GetName() << " has " << A->GetHp() << " HP\n";
+	std::cout << B->GetName() << " has " << B->GetHp() << " HP\n";
 }

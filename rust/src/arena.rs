@@ -92,7 +92,7 @@ impl Arena {
     }
 
     fn display_health(&self) {
-        println!("{} has {} hp.", self.entity_a.name, self.entity_a.hp); 
-        println!("{} has {} hp.", self.entity_b.name, self.entity_b.hp); 
+        println!("{} has {} HP.", self.entity_a.name, self.entity_a.hp); 
+        println!("{} has {} HP.", self.entity_b.name, self.entity_b.hp); 
     }
 }

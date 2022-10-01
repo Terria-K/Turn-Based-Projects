@@ -70,8 +70,8 @@ class Arena {
     }
 
     private function displayHealth() {
-        trace('${entityA.name} has ${entityA.hp} health');
-        trace('${entityB.name} has ${entityB.hp} health'); 
+        trace('${entityA.name} has ${entityA.hp} HP');
+        trace('${entityB.name} has ${entityB.hp} HP'); 
     }
 
     private function prompt() {
