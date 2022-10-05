@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Entity.h"
 
-enum class States
+enum States
 {
 	IdleState,
 	TurnAState,
