@@ -12,7 +12,7 @@ Entity::Entity()
 	this->hp = 100;
 }
 
-Entity::Entity(const char* name)
+Entity::Entity(const char *name)
 {
 	this->name = name;
 	this->hp = 100;
@@ -32,7 +32,7 @@ int Entity::assign_attack_damage(int max)
 {
 	return rand() % max + 1;
 }
-void Entity::deal_damage_to(Entity* entity, int damage) 
+void Entity::deal_damage_to(Entity *entity, int damage) 
 {
 	int entity_hp = entity->get_hp();
 	entity->set_hp(entity_hp - damage);

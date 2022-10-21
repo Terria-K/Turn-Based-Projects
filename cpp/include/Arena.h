@@ -15,12 +15,10 @@ class Arena
 private:
 	Entity* entity_a;
 	Entity* entity_b;
-	bool done;
 	States state;
 
 public:
-	bool is_done();
-	Arena(Entity* contestantA, Entity* contestantB);
+	Arena(Entity *entity_a, Entity *entity_b);
 	void fight();
 	void display_health();
 	void prompt();

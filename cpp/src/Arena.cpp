@@ -2,28 +2,16 @@
 #include <chrono>
 #include <thread>
 #include "Arena.h" 
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include <unistd.h>
-#endif
-#include <shellapi.h>
 
 using namespace std::this_thread;
 using namespace std::chrono_literals;
 using std::chrono::system_clock;
 
-Arena::Arena(Entity* entity_a, Entity* entity_b) 
+Arena::Arena(Entity *entity_a, Entity *entity_b) 
 {
 	this->entity_a = entity_a;
 	this->entity_b = entity_b;
-	done = false;
 	state = States::IdleState;
-}
-
-bool Arena::is_done() 
-{
-	return done;
 }
 
 void Arena::fight() 
@@ -83,7 +71,6 @@ void Arena::fight()
 		sleep_until(system_clock::now() + 1s);
 	}
 	prompt();
-	done = true;
 }
 
 void Arena::prompt() 
