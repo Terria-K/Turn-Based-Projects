@@ -2,7 +2,6 @@
 #include "Entity.h"
 #include "Arena.h"
 
-
 auto main() -> int
 {
     srand((unsigned)time(0));
